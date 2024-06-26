@@ -4,11 +4,13 @@ void (*entry)() = NULL; // mp entry
 
 static const char *tests[256] = {
   ['h'] = "hello",
+  ['s'] = "test_string",
 };
 
 int main(const char *args) {
   switch (args[0]) {
     CASE('h', hello);
+    CASE('s', test_string);
     case 'H':
     default:
       printf("Usage: make run mainargs=*\n");
