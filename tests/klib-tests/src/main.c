@@ -5,12 +5,14 @@ void (*entry)() = NULL; // mp entry
 static const char *tests[256] = {
   ['h'] = "hello",
   ['s'] = "test_string",
+  ['p'] = "test_print",
 };
 
 int main(const char *args) {
   switch (args[0]) {
     CASE('h', hello);
     CASE('s', test_string);
+    CASE('p', test_print);
     case 'H':
     default:
       printf("Usage: make run mainargs=*\n");
@@ -19,6 +21,7 @@ int main(const char *args) {
           printf("  %c: %s\n", ch, tests[ch]);
         }
       }
+      return -1;
   }
   return 0;
 }

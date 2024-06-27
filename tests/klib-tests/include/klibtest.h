@@ -22,7 +22,7 @@ extern void (*entry)();
 #define check(cond) \
   do{\
     if (!(cond)){\
-      printf("[%s %s:%d] check failed: " #cond ,__FILE__, __FUNCTION__, __LINE__);\
+      printf("\033[31m[%s:%d %s] check failed\n  " #cond "\033[0m\n", __FILE__, __LINE__, __FUNCTION__);\
       halt(1);\
     }\
   }while(0)
@@ -57,7 +57,7 @@ extern void (*entry)();
     int i;\
     for(i=0;i<(sizeof(A)/sizeof(A[0]));++i) {\
       if(A[i]!=B[i]) {\
-        printf("dismatched %d: %#x %#x\n", i, A[i], B[i]);\
+        printf("dismatched %d: 0x%x 0x%x | '%c' '%c'\n", i, A[i], B[i], A[i], B[i]);\
         check(A[i]==B[i]);\
       }\
     }\
