@@ -57,7 +57,7 @@ extern void (*entry)();
     int i;\
     for(i=0;i<(sizeof(A)/sizeof(A[0]));++i) {\
       if(A[i]!=B[i]) {\
-        printf("dismatched %d: 0x%x 0x%x | '%c' '%c'\n", i, A[i], B[i], A[i], B[i]);\
+        printf("dismatched %d: 0x%x 0x%x\n", i, A[i], B[i]);\
         check(A[i]==B[i]);\
       }\
     }\

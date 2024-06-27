@@ -56,10 +56,10 @@ void test_string() {
   }
 
   // test strcmp
-  assert(strcmp("", "hello")<0);
-  assert(strcmp("hell", "hello")<0);
-  assert(strcmp("hello", "")>0);
-  assert(strcmp("hello", "hell")>0);
-  assert(strcmp("", "")==0);
-  assert(strcmp("hello", "hello")==0);
+  check(strcmp("", "hello")<0);
+  check(strcmp("hell", "hello")<0);
+  check(strcmp("hello", "")>0);
+  check(strcmp("hello", "hell")>0);
+  check(strcmp("", "")==0);
+  check(strcmp("hello", "hello")==0);
 }
