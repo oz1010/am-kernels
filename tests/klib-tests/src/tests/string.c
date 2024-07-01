@@ -62,4 +62,28 @@ void test_string() {
   check(strcmp("hello", "hell")>0);
   check(strcmp("", "")==0);
   check(strcmp("hello", "hello")==0);
+
+  // test memset
+  {
+    char str0[32] = {" world"};
+    memset(str0, 0, 6);
+    check_eq(str0, 0, 32, 0);
+  }
+  {
+    char str0[32] = {" world"};
+    memset(str0, 0xB0A0, 6);
+    check_eq(str0, 0, 6, 0xA0);
+    check_eq(str0, 6, 32, 0);
+  }
+
+  // test memcmp
+  {
+    check(memcmp("Hello", "Helle", 4) == 0);
+    check(memcmp("Hello", "Helle", 5) > 0);
+    check(memcmp("Helle", "Hello", 5) < 0);
+    check(memcmp("", "Hello", 5) < 0);
+    check(memcmp("Hello", "", 5) > 0);
+    check(memcmp("Hello", "Hello World", 6) < 0);
+    check(memcmp("Hello World", "Hello", 6) > 0);
+  }
 }

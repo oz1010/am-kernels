@@ -28,26 +28,32 @@ extern void (*entry)();
   }while(0)
 
 // 检查[l,r)区间中的值是否依次为val, val + 1, val + 2...
-#define check_seq(_L,_R,_VAL) \
+#define check_seq(_DATA, _L,_R,_VAL) \
   do{\
     int i;\
     int l = _L;\
     int r = _R;\
-    int val = _VAL;\
+    char val = _VAL;\
     for (i=l;i<r;++i) {\
-      check(data[i]==val+i-1);\
+      if (_DATA[i]!=(val+i-1)) {\
+        printf("dismatched %d: 0x%x 0x%x\n", i, _DATA[i], val+i-1);\
+        check(_DATA[i]==(val+i-1));\
+      }\
     }\
   }while(0)
 
 // 检查[l,r)区间中的值是否均为val
-#define check_eq(_L,_R,_VAL) \
+#define check_eq(_DATA, _L,_R,_VAL) \
   do{\
     int i;\
     int l = _L;\
     int r = _R;\
-    int val = _VAL;\
+    char val = _VAL;\
     for (i=l;i<r;++i) {\
-      check(data[i]==val);\
+      if (_DATA[i]!=val) {\
+        printf("dismatched %d: 0x%x " #_VAL "\n", i, _DATA[i]);\
+        check(_DATA[i]==val);\
+      }\
     }\
   }while(0)
 
