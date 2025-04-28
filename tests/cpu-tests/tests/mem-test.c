@@ -11,6 +11,7 @@ extern bin_header_t bin_header;
 int main() {
     // 简单测试，内存要求读写字节对齐
     uint8_t *pmem8 = (uint8_t *)bin_header.bss_end;
+    uint16_t *pmem16 = (uint16_t *)bin_header.bss_end;
     uint32_t *pmem32 = (uint32_t *)bin_header.bss_end;
     // 非4字节对齐读测试
     pmem32[0] = 0x44434241;
@@ -29,10 +30,30 @@ int main() {
     uint32_t test_cnt = 0;
     // 8bit test
     for (uint32_t i=0; i<(MEM_ADDR_END-MEM_ADDR_START+1); ++i,++test_cnt) {
-        uint8_t data = (uint8_t)((uint8_t)(uintptr_t)&pmem8[i])|(uint8_t)i;
+        uint8_t data = (uint8_t)((uint8_t)(uintptr_t)&pmem8[i]);
         // asm volatile("mv a0, sp; ebreak;");
         pmem8[i] = data;
         if (pmem8[i] != data) {
+            return test_cnt;
+        }
+    }
+    
+    // 16bit test
+    for (uint32_t i=0; i<(MEM_ADDR_END-MEM_ADDR_START+1); ++i,++test_cnt) {
+        uint16_t data = (uint16_t)((uint16_t)(uintptr_t)&pmem16[i]);
+        // asm volatile("mv a0, sp; ebreak;");
+        pmem16[i] = data;
+        if (pmem16[i] != data) {
+            return test_cnt;
+        }
+    }
+    
+    // 32bit test
+    for (uint32_t i=0; i<(MEM_ADDR_END-MEM_ADDR_START+1); ++i,++test_cnt) {
+        uint32_t data = (uint32_t)((uint32_t)(uintptr_t)&pmem32[i]);
+        // asm volatile("mv a0, sp; ebreak;");
+        pmem32[i] = data;
+        if (pmem32[i] != data) {
             return test_cnt;
         }
     }
