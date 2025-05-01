@@ -1,4 +1,5 @@
 #include "trap.h"
+#include "peripheral/test_intf.h"
 
 static inline uint8_t  inb(uintptr_t addr) { return *(volatile uint8_t  *)addr; }
 static inline uint16_t inw(uintptr_t addr) { return *(volatile uint16_t *)addr; }
@@ -10,6 +11,8 @@ static inline uint64_t inll(uintptr_t addr) { return *(volatile uint64_t *)addr;
 
 int main()
 {
+    test_intf_switch_flash(1);
+
     CHECK_DATA(inb(FLASH_BASEADDR+0), 0x30);
     CHECK_DATA(inb(FLASH_BASEADDR+1), 0x31);
     CHECK_DATA(inb(FLASH_BASEADDR+2), 0x32);
