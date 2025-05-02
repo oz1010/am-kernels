@@ -6,7 +6,7 @@ static inline uint16_t inw(uintptr_t addr) { return *(volatile uint16_t *)addr; 
 static inline uint32_t inl(uintptr_t addr) { return *(volatile uint32_t *)addr; }
 static inline uint64_t inll(uintptr_t addr) { return *(volatile uint64_t *)addr; }
 
-#define FLASH_BASEADDR (0x30000000)
+#define FLASH_BASEADDR TEST_INIF_FLASH_BASEADDR
 #define CHECK_DATA(a,b) do{if((a)!=(b)) halt((int)b);}while(0)
 
 int main()

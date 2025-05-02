@@ -14,9 +14,9 @@ int main()
 {
     test_intf_switch_flash(1);
 
-    CHECK_DATA(inl(0x30000000), 0x33323130);
-    CHECK_DATA(inl(0x30000004), 0x37363534);
-    CHECK_DATA(inl(0x30000008), 0x3b3a3938);
+    CHECK_DATA(inl(TEST_INIF_FLASH_BASEADDR+0x0), 0x33323130);
+    CHECK_DATA(inl(TEST_INIF_FLASH_BASEADDR+0x4), 0x37363534);
+    CHECK_DATA(inl(TEST_INIF_FLASH_BASEADDR+0x8), 0x3b3a3938);
 
     return 0;
 }

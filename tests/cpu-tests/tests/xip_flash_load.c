@@ -17,7 +17,7 @@ int main()
 
     uint32_t code;
     for (uint32_t idx=0; idx<8; ++idx) {
-        code = *(volatile uint32_t*)(0x30000000 + 4*idx);
+        code = *(volatile uint32_t*)(TEST_INIF_FLASH_BASEADDR + 4*idx);
         new_code_mem[idx] = code;
     }
     new_code_entry();
