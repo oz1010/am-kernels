@@ -11,24 +11,13 @@
 static void (*new_code_entry) (void) = (void *)NEW_CODE_ENTRY;
 static volatile uint32_t *new_code_mem = (void *)NEW_CODE_ENTRY;
 
-void jump_to_address(uint32_t addr) {
-    __asm__ volatile (
-        "mv a0, %0\n"        // 将 addr 移入 a0
-        "jr a0\n"            // 无条件跳转到 a0 地址处
-        :
-        : "r"(addr)
-        : "a0"
-    );
-    __builtin_unreachable(); // 告诉编译器不会返回
-}
-
 int main()
 {
     test_intf_switch_flash(2);
 
     uint32_t code;
     for (uint32_t idx=0; idx<8; ++idx) {
-        code = flash_read(4*idx);
+        code = *(volatile uint32_t*)(0x30000000 + 4*idx);
         new_code_mem[idx] = code;
     }
     new_code_entry();

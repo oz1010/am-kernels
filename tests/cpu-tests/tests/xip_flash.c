@@ -2,26 +2,21 @@
 #include "peripheral/flash.h"
 #include "peripheral/test_intf.h"
 
+static inline uint8_t  inb(uintptr_t addr) { return *(volatile uint8_t  *)addr; }
+static inline uint16_t inw(uintptr_t addr) { return *(volatile uint16_t *)addr; }
+static inline uint32_t inl(uintptr_t addr) { return *(volatile uint32_t *)addr; }
+static inline uint64_t inll(uintptr_t addr) { return *(volatile uint64_t *)addr; }
+
+// #define CHECK_DATA(a,b) do{if((a)!=(b)) halt((int)b);}while(0)
+#define CHECK_DATA(a,b) do{uint32_t test=(a); if(test!=(b)) halt((int)test);}while(0)
+
 int main()
 {
     test_intf_switch_flash(1);
-    uint32_t data;
 
-    // *(volatile uint32_t *)SPI_DIVIDER = 0;
-    // *(volatile uint32_t *)SPI_SS= 1;
-    // *(volatile uint32_t *)SPI_TX0= 0;
-    // *(volatile uint32_t *)SPI_TX1= 0x03000002;
-    // *(volatile uint32_t *)SPI_CTRL= 0x2540;
-    // while(spi_dev->ctrl.go_bsy) ;
-    // data = *(volatile uint32_t*)SPI_RX0;
-
-    data = *(volatile uint32_t*)0x30000000;
-    data = *(volatile uint32_t*)0x30000004;
-
-    // flash_init();
-    // data = flash_read(0x2);
-
-    halt(data);
+    CHECK_DATA(inl(0x30000000), 0x33323130);
+    CHECK_DATA(inl(0x30000004), 0x37363534);
+    CHECK_DATA(inl(0x30000008), 0x3b3a3938);
 
     return 0;
 }
